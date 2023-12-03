@@ -6,11 +6,11 @@ ros::Subscriber sub;
 int leg_count=0;
 int person_count=0;
 int range_count=0;
-float mid_x[2];
-float mid_y[2];
-float person_x[3];
-float person_y[3];
-std::vector<std::pair<float, float>> leg_ranges[2];
+float mid_x[2]={0, 0};
+float mid_y[2]={0,0};
+float person_x[3]{0,0,0};
+float person_y[3]{0,0,0};
+std::vector<std::pair<float, float>> leg_ranges;
 void positionCallback(const sensor_msgs::LaserScan::ConstPtr &scan_msg)
 {
     if (processed) 
@@ -25,7 +25,7 @@ void positionCallback(const sensor_msgs::LaserScan::ConstPtr &scan_msg)
     {
         if (std::isinf(ranges[i])) 
         {
-            continue;
+            ranges[i]=0.0;
         }
         else
         {
@@ -33,28 +33,32 @@ void positionCallback(const sensor_msgs::LaserScan::ConstPtr &scan_msg)
             float x = ranges[i] * std::cos(angle);
             float y = ranges[i] * std::sin(angle);
         
-            leg_ranges[leg_count].push_back(std::make_pair(x, y));
+            leg_ranges.push_back(std::make_pair(x, y));
             range_count++;
 
-            if (std::isinf(ranges[i+1])) 
+            if ((ranges[i+1]==0.0)||(i == (ranges.size() - 1))||(std::isinf(ranges[i+1])) ) 
             {
-                for(int j=0; j<= range_count;range_count++)
+                for(int j=0; j< range_count;j++)
                 {
-                    mid_x[leg_count] += leg_ranges[leg_count][j].first;
-                    mid_y[leg_count] += leg_ranges[leg_count][j].second;
+                    mid_x[leg_count] += leg_ranges[j].first;
+                    mid_y[leg_count] += leg_ranges[j].second;
                 }
                     mid_x[leg_count]= mid_x[leg_count]/range_count;
                     mid_y[leg_count]= mid_y[leg_count]/range_count;
-
-                leg_ranges[leg_count].clear();
+                    ROS_INFO("Person %i leg %i X: %f,Y: %f", person_count+1,leg_count+1,mid_x[leg_count],mid_y[leg_count]);
+                leg_ranges.clear();
                 range_count = 0;
                 leg_count++;  
-
+            
                 if (leg_count==2) 
                 {
                     person_x[person_count]= (mid_x[leg_count-2]+ mid_x[leg_count-1])/2.0;
                     person_y[person_count]= (mid_y[leg_count-2]+ mid_y[leg_count-1])/2.0;
-                    ROS_INFO("Person %u Position: (x, y) = (%f, %f)", person_count + 1, person_x[person_count], person_y[person_count]);
+                    ROS_INFO("Person %u Position: (x, y) = (%.2f, %.2f)", person_count + 1, person_x[person_count], person_y[person_count]);
+                    mid_x[0]=0.0;
+                    mid_x[0]=0.0;
+                    mid_x[1]=0.0;
+                    mid_x[1]=0.0;
                     leg_count=0;
                     person_count++;
                 }

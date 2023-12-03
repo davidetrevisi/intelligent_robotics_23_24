@@ -119,7 +119,7 @@ include_directories(
  include
   ${catkin_INCLUDE_DIRS}
 )
-add_executable(pose_estimator src/exercise_4.cpp)
+add_executable(pose_estimator src/exercise4_1.cpp)
 target_link_libraries(pose_estimator ${catkin_LIBRARIES})
 
 ## Declare a C++ library
