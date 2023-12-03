@@ -46,7 +46,6 @@ void positionCallback(const sensor_msgs::LaserScan::ConstPtr &scan_msg)
                     mid_x[leg_count]= mid_x[leg_count]/range_count;
                     mid_y[leg_count]= mid_y[leg_count]/range_count;
 
-           // ROS_INFO("Person %u Position: (x, y) = (%f, %f)", leg_count + 1, mid_x, mid_y);
                 leg_ranges[leg_count].clear();
                 range_count = 0;
                 leg_count++;  
