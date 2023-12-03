@@ -1,5 +1,5 @@
 # intelligent_robotics_23_24
-Run the following commands in 3 different terminal
+Run the following commands in 3 different terminal windows
 ```
 roscore
 rosbag play -l bag_es_5.bag
