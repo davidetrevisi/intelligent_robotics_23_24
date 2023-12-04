@@ -1,4 +1,4 @@
-# Intelligent Robotics 2023-2024
+# GROUP 28 - BIFFIS NICOLA, PAVAN STEFANO, TREVISI DAVIDE
 
 ## Exercise 4
 ### Exercise 4.3
