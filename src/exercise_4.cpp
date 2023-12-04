@@ -15,7 +15,7 @@ std::vector<std::pair<float, float>> leg_ranges[6];
 std::vector<cv::Point2f> leg_ranges_cv;
 
 int pose_estimating();
-void shifting_array(float array[], int size);
+void array_shifting(float array[], int size);
 void positionCallback(const sensor_msgs::LaserScan::ConstPtr &scan_msg)
 {
     std::vector<float> ranges = scan_msg->ranges;
@@ -82,8 +82,8 @@ int pose_estimating()
         }
     }
 
-    shifting_array(mid_x, (sizeof(mid_x) / sizeof(mid_x[0])));
-    shifting_array(mid_y, (sizeof(mid_x) / sizeof(mid_y[0])));
+    array_shifting(mid_x, (sizeof(mid_x) / sizeof(mid_x[0])));
+    array_shifting(mid_y, (sizeof(mid_x) / sizeof(mid_y[0])));
 
     for (int i = 0; i < person_count; ++i)
     {
@@ -95,7 +95,7 @@ int pose_estimating()
     return 0;
 }
 
-void shifting_array(float array[], int size)
+void array_shifting(float array[], int size)
 {
     float temp = array[size - 1];
     for (int i = size - 1; i > 0; --i)
