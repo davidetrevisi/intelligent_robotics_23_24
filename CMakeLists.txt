@@ -9,7 +9,6 @@ project(exercise_4)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  std_msgs
   sensor_msgs
 )
 
@@ -122,8 +121,6 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
 )
-add_executable(pose_estimator src/exercise4_1.cpp)
-target_link_libraries(pose_estimator ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -140,6 +137,8 @@ target_link_libraries(pose_estimator ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/exercise_4_node.cpp)
 
+add_executable(exercise_4 src/exercise_4.cpp)
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -154,6 +153,8 @@ target_link_libraries(pose_estimator ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+
+target_link_libraries(exercise_4 ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 #############
 ## Install ##
