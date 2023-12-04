@@ -52,10 +52,10 @@ void positionCallback(const sensor_msgs::LaserScan::ConstPtr &scan_msg)
 
     cv::kmeans(leg_ranges_cv, leg_count/2, labels, cv::TermCriteria(cv::TermCriteria::MAX_ITER + cv::TermCriteria::EPS, 100, 0.001), 5, cv::KMEANS_PP_CENTERS, centers);
 
-    ROS_INFO_STREAM("CENTERS : " << std::endl);
-    ROS_INFO_STREAM(centers);
-
+    ROS_INFO("Exercise 4.3 - Create a ROS node to compute the position of the people:");
     pose_estimating();
+    ROS_INFO("Exercise 4.4 - Generalize the ROS node to compute the position of any number of people:");
+    ROS_INFO_STREAM("Position of each person: (x, y)= \n"<<centers);
     ros::shutdown();
 }
 
