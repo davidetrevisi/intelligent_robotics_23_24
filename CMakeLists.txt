@@ -13,6 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
 )
 
+find_package(OpenCV 4 REQUIRED)
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -118,9 +120,10 @@ catkin_package(
 include_directories(
  include
   ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 add_executable(pose_estimator src/exercise4_1.cpp)
-target_link_libraries(pose_estimator ${catkin_LIBRARIES})
+target_link_libraries(pose_estimator ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}

@@ -1,5 +1,8 @@
 #include "ros/ros.h"
 #include "sensor_msgs/LaserScan.h"
+
+#include <opencv2/core.hpp>
+
 #include "cmath"
 bool processed;
 ros::Subscriber sub;
@@ -11,6 +14,9 @@ float mid_y[6] = {0.0};
 float person_x[3] = {0.0};
 float person_y[3] = {0.0};
 std::vector<std::pair<float, float>> leg_ranges[6];
+
+std::vector<cv::Point2f> leg_ranges_cv;
+
 int pose_estimating();
 void positionCallback(const sensor_msgs::LaserScan::ConstPtr &scan_msg)
 {
@@ -19,17 +25,17 @@ void positionCallback(const sensor_msgs::LaserScan::ConstPtr &scan_msg)
     float angle_increment = scan_msg->angle_increment;
     for (int i = 0; i < ranges.size(); i++)
     {
-        if (std::isinf(ranges[i]))
-        {
-            continue;
-        }
-        else
+        if (!std::isinf(ranges[i]))
         {
             float angle = angle_min + (i * angle_increment);
             float x = ranges[i] * std::cos(angle);
             float y = ranges[i] * std::sin(angle);
 
             leg_ranges[leg_count].push_back(std::make_pair(x, y));
+
+            cv::Point2f point(x, y);
+            leg_ranges_cv.push_back(point);
+
             range_count[leg_count]++;
 
             if ((std::isinf(ranges[i + 1])) || i == ranges.size() - 1)
@@ -38,6 +44,15 @@ void positionCallback(const sensor_msgs::LaserScan::ConstPtr &scan_msg)
             }
         }
     }
+
+    cv::Mat centers;  
+    std::vector<int> labels; 
+
+    cv::kmeans(leg_ranges_cv, leg_count/2, labels, cv::TermCriteria(cv::TermCriteria::MAX_ITER + cv::TermCriteria::EPS, 100, 0.001), 5, cv::KMEANS_PP_CENTERS, centers);
+
+    ROS_INFO_STREAM("CENTERS : " << std::endl);
+    ROS_INFO_STREAM(centers);
+
     pose_estimating();
     ros::shutdown();
 }
