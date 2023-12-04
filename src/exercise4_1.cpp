@@ -12,6 +12,7 @@ float person_x[3] = {0.0};
 float person_y[3] = {0.0};
 std::vector<std::pair<float, float>> leg_ranges[6];
 int pose_estimating();
+void shifting_array(float array[], int size);
 void positionCallback(const sensor_msgs::LaserScan::ConstPtr &scan_msg)
 {
     std::vector<float> ranges = scan_msg->ranges;
@@ -62,32 +63,30 @@ int pose_estimating()
         }
         mid_x[l] = mid_x[l] / range_count[l];
         mid_y[l] = mid_y[l] / range_count[l];
-
         if ((l % 2 == 0))
         {
             person_count++;
         }
     }
 
+    shifting_array(mid_x, (sizeof(mid_x)/ sizeof(mid_x[0])));
+    shifting_array(mid_y, (sizeof(mid_x)/ sizeof(mid_y[0])));
+
     for (int i = 0; i < person_count; ++i)
     {
-        if (i == 0)
-        {
-            person_x[0] = (mid_x[0] + mid_x[5]) / 2.0;
-            person_y[0] = (mid_y[0] + mid_y[5]) / 2.0;
-        }
-        else if (i == 1)
-        {
-            person_x[1] = (mid_x[1] + mid_x[2]) / 2.0;
-            person_y[1] = (mid_y[1] + mid_y[2]) / 2.0;
-        }
-        else if (i == 2)
-        {
-            person_x[2] = (mid_x[3] + mid_x[4]) / 2.0;
-            person_y[2] = (mid_y[3] + mid_y[4]) / 2.0;
-        }
+        person_x[i] = (mid_x[i*2] + mid_x[i*2+1]) / 2.0;
+        person_y[i] = (mid_y[i*2] + mid_y[i*2+1]) / 2.0;
         ROS_INFO("Person %i Position: (x, y) = (%.2f, %.2f)", i + 1, person_x[i], person_y[i]);
     }
 
     return 0;
+}
+
+void shifting_array(float array[], int size){
+float temp = array[size - 1];
+for (int i = size - 1; i > 0; --i) 
+{
+    array[i] = array[i - 1];
+}
+array[0] = temp; 
 }
