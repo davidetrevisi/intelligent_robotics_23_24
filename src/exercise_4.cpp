@@ -1,20 +1,17 @@
 #include <ros/ros.h>
 #include <sensor_msgs/LaserScan.h>
-
 #include <opencv2/core.hpp>
 #include <cmath>
 
-bool processed;
 ros::Subscriber sub;
 int leg_count = 0;
 int person_count = 0;
-int range_count[7] = {0};
+int range_count[6] = {0};
 float mid_x[6] = {0.0};
 float mid_y[6] = {0.0};
 float person_x[3] = {0.0};
 float person_y[3] = {0.0};
 std::vector<std::pair<float, float>> leg_ranges[6];
-
 std::vector<cv::Point2f> leg_ranges_cv;
 
 int pose_estimating();
