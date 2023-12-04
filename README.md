@@ -1,7 +1,5 @@
 # Intelligent Robotics 2023-2024
 
-Repository containing solutions for Intelligent Robotics exercises
-
 ## Exercise 4
 ### Exercise 4.3
 To know in advance the size of the vector of data coming from the laser, it is sufficient to do: vector_size = angle_max / angle_increment = 6.28 / 0.0087 = 720.
