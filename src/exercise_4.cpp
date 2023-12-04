@@ -92,7 +92,7 @@ int pose_estimating()
     {
         person_x[i] = (mid_x[i*2] + mid_x[i*2+1]) / 2.0;
         person_y[i] = (mid_y[i*2] + mid_y[i*2+1]) / 2.0;
-        ROS_INFO("Person %i Position: (x, y) = (%.2f, %.2f)", i + 1, person_x[i], person_y[i]);
+        ROS_INFO("Person %i Position: (x, y) = (%f, %f)", i + 1, person_x[i], person_y[i]);
     }
 
     return 0;
