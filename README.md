@@ -43,7 +43,7 @@ roscore
 ```
 2
 ```
-cd catkin_ws/src/intelligent_robotics_23_24/src
+cd catkin_ws/src/exercise_4_G28/src
 rosbag play -l bag_es_5.bag
 ```
 3
