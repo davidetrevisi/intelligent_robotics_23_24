@@ -12,7 +12,7 @@ Each readout of the laser range finder converted to [x, y] coordinates is stored
 
 ---
 
-NOTE: We made some assumptions for our solution: first, that each leg must be separated by at least one 'infinite' value of the laser scanner (e.g. no walls behind the people), then each leg is placed according to the given standard (e.g. each person stands in a circle around the laser and there are no overlapping legs or people turning their sides to the robot so that only one leg is actually read).
+NOTE: We made some assumptions for our solution: first, that each leg must be separated by at least one 'infinite' value of the laser scanner (e.g. no walls behind the people), then each leg is placed according to the given standard (e.g. each person stands in a circle around the laser and there are no overlapping legs or people turning their sides to the robot so that only one leg is actually detected).
 
 It is possible to do this with the proposed "general solution" described below, but we decided to keep both methods instead.
 
