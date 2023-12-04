@@ -12,9 +12,9 @@ Each readout of the laser range finder converted to [x, y] coordinates is stored
 
 ---
 
-NOTE: We made some assumptions for our solution: first, that each leg must be separated by at least one 'infinite' value of the laser scanner (e.g. no walls behind the people), then each leg is placed according to the given standard (e.g. each person stands in a circle around the laser and there are no overlapping legs or people turning their sides to the robot so that only one leg is actually detected).
+NOTE: We made some assumptions for our solution: first, that each leg must be separated by at least one 'infinite' value of the laser scanner (e.g. no walls behind the people for at least 3.5m), then each leg is placed according to the given standard (e.g. each person stands in a circle around the laser and there are no overlapping legs or people turning their sides to the robot so that only one leg is actually detected).
 
-It is possible to do this with the proposed "general solution" described below, but we decided to keep both methods instead.
+It is possible to do this with the proposed "general solution" described in Exercise 4.4 paragraph, but we decided to keep both methods instead.
 
 ---
 
@@ -26,6 +26,7 @@ To compute the position of each person we used a standard mathematical approach 
 
 ### Exercise 4.4
 To compute the position of any number of people, i.e. removing the assumption that there are three people, we used the kmeans algorithm from the OpenCV library and chose leg_count / 2 (computed with the previous algorithm) as k.
+
 Position of each person: 
 - (x, y) = (1.9355006, -0.0082151974);
 - (x, y) = (1.0901387, 2.0032334);
