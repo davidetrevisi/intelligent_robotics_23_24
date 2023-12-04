@@ -2,7 +2,6 @@
 #include <sensor_msgs/LaserScan.h>
 
 #include <opencv2/core.hpp>
-
 #include <cmath>
 
 bool processed;
