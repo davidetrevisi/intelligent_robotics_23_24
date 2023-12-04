@@ -12,7 +12,7 @@ To run the solution, execute the following commands in 3 different terminal wind
 ```
 roscore
 rosbag play -l bag_es_5.bag
-rosrun exercise_4 pose_estimator
+rosrun exercise_4 exercise_4
 ```
 
 OpenCV 4 is required, in theory it should have been already installed along ROS.
