@@ -43,15 +43,16 @@ void positionCallback(const sensor_msgs::LaserScan::ConstPtr &scan_msg)
         }
     }
 
-    cv::Mat centers;  
-    std::vector<int> labels; 
+    cv::Mat centers;
+    std::vector<int> labels;
 
-    cv::kmeans(leg_ranges_cv, leg_count/2, labels, cv::TermCriteria(cv::TermCriteria::MAX_ITER + cv::TermCriteria::EPS, 100, 0.001), 5, cv::KMEANS_PP_CENTERS, centers);
+    cv::kmeans(leg_ranges_cv, leg_count / 2, labels, cv::TermCriteria(cv::TermCriteria::MAX_ITER + cv::TermCriteria::EPS, 100, 0.001), 5, cv::KMEANS_PP_CENTERS, centers);
 
     ROS_INFO("Exercise 4.3 - Create a ROS node to compute the position of the people:");
     pose_estimating();
     ROS_INFO("Exercise 4.4 - Generalize the ROS node to compute the position of any number of people:");
-    ROS_INFO_STREAM("Position of each person: (x, y)= \n"<<centers);
+    ROS_INFO_STREAM("Position of each person: (x, y)= \n"
+                    << centers);
     ros::shutdown();
 }
 
@@ -81,24 +82,25 @@ int pose_estimating()
         }
     }
 
-    shifting_array(mid_x, (sizeof(mid_x)/ sizeof(mid_x[0])));
-    shifting_array(mid_y, (sizeof(mid_x)/ sizeof(mid_y[0])));
+    shifting_array(mid_x, (sizeof(mid_x) / sizeof(mid_x[0])));
+    shifting_array(mid_y, (sizeof(mid_x) / sizeof(mid_y[0])));
 
     for (int i = 0; i < person_count; ++i)
     {
-        person_x[i] = (mid_x[i*2] + mid_x[i*2+1]) / 2.0;
-        person_y[i] = (mid_y[i*2] + mid_y[i*2+1]) / 2.0;
+        person_x[i] = (mid_x[i * 2] + mid_x[i * 2 + 1]) / 2.0;
+        person_y[i] = (mid_y[i * 2] + mid_y[i * 2 + 1]) / 2.0;
         ROS_INFO("Person %i Position: (x, y) = (%f, %f)", i + 1, person_x[i], person_y[i]);
     }
 
     return 0;
 }
 
-void shifting_array(float array[], int size){
-float temp = array[size - 1];
-for (int i = size - 1; i > 0; --i) 
+void shifting_array(float array[], int size)
 {
-    array[i] = array[i - 1];
-}
-array[0] = temp; 
+    float temp = array[size - 1];
+    for (int i = size - 1; i > 0; --i)
+    {
+        array[i] = array[i - 1];
+    }
+    array[0] = temp;
 }
